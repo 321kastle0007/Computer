@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Asset</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Edit Asset - <%= asset.asset_id %></h1>
+    </div>
+    <form action="/asset/<%= asset.asset_id %>/update" method="POST">
+      <div class="card">
+        <h2>Operating System</h2>
+        <label for="os">Select OS:</label>
+        <select name="os[os]" id="os">
+          <option value="<%= asset.os.os %>" selected><%= asset.os.os %></option>
+          <% substitutes.os.forEach(sub => { %>
+            <option value="<%= sub %>"><%= sub %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <div class="card">
+        <h2>RAM</h2>
+        <label for="ram">Total RAM:</label>
+        <select name="ram[total]" id="ram">
+          <option value="<%= asset.ram.total %>" selected><%= asset.ram.total %> GB</option>
+          <% substitutes.ram.forEach(sub => { %>
+            <option value="<%= sub %>"><%= sub %> GB</option>
+          <% }) %>
+        </select>
+      </div>
+
+      <div class="card">
+        <h2>Disks</h2>
+        <% asset.disks.forEach((disk, index) => { %>
+          <div class="disk-edit">
+            <label for="disk<%= index %>">Disk <%= index + 1 %> Type:</label>
+            <select name="disks[<%= index %>][type]" id="disk<%= index %>">
+              <option value="<%= disk.type %>" selected><%= disk.type %></option>
+              <% substitutes.disks.forEach(sub => { %>
+                <option value="<%= sub %>"><%= sub %></option>
+              <% }) %>
+            </select>
+          </div>
+        <% }) %>
+      </div>
+
+      <div class="footer">
+        <button type="submit" class="btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

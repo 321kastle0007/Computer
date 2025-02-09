@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asset Information</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Asset Information - <%= asset.asset_id %></h1>
+    </div>
+
+    <!-- Display all asset data -->
+    <div class="card">
+      <h2>Hostname & OS</h2>
+      <p><strong>Hostname:</strong> <%= asset.os.hostname %></p>
+      <p><strong>OS:</strong> <%= asset.os.os %> <%= asset.os.os_version %></p>
+    </div>
+
+    <div class="card">
+      <h2>CPU</h2>
+      <p><strong>Model:</strong> <%= asset.cpu.model %></p>
+      <p><strong>Cores:</strong> <%= asset.cpu.cores %></p>
+    </div>
+
+    <div class="card">
+      <h2>RAM</h2>
+      <p><strong>Total RAM:</strong> <%= asset.ram.total %> GB</p>
+    </div>
+
+    <div class="card">
+      <h2>Disks</h2>
+      <ul>
+        <% asset.disks.forEach(disk => { %>
+          <li><strong>Device:</strong> <%= disk.device %> (<%= disk.type %>)</li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Network</h2>
+      <p><strong>IP Address:</strong> <%= asset.network.ip_address %></p>
+    </div>
+
+    <!-- Edit Button -->
+    <div class="footer">
+      <a href="/asset/<%= asset.asset_id %>/edit">
+        <button class="btn-primary">Edit</button>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
